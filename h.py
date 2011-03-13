@@ -1,18 +1,11 @@
-
-import os,sys
-
-def p(options,buildout):
-    # adding maps files
-
-    src  = os.path.join(options['location'], 'sbin', 'nginx')
-    dst  = os.path.join(options['location'], 'bin', 'nginx')
-    ddst = os.path.join(options['location'], 'bin' )
-    if os.path.exists(src):
-        if os.path.exists(dst):
-            os.unlink(dst)
-        if not os.path.exists(ddst):
-            os.makedirs(ddst)
-        os.rename(src, dst)
-
-
+import os
+import sys
+def h(options, buildout):
+    if sys.platform.startswith('cygwin'):
+        c = os.getcwd()
+        os.chdir(options['compile-directory'])
+        os.system("autoreconf -ifv")
+        #r = open('config.h.in').readlines()
+        #r.append('\n\n#define _POSIX_C_SOURCE 200112L\n\n')
+        #open('config.h.in', 'w').writelines(r)
 
